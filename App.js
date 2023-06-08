@@ -1,20 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import AppLoading from 'expo-app-loading'
+import { gStyle } from './styles/style';
+import * as Font from 'expo-font';
+import MainStack from './naviagate'
+
+// подключаем асинхронно шрифты которые взяли из гугл
+const fonts = () => Font.loadAsync({
+  'mt-bold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
+  'mt-light': require('./assets/fonts/Montserrat-Light.ttf'),
+});
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+  const [font, setFont] = useState(false)
+
+  if(font) {
+    return (
+      <MainStack />
+    );
+  } else {
+    return (
+      <AppLoading
+        startAsync={fonts}
+        onFinish={() =>  setFont(true)}
+        onError={(error)=> console.warn(error)}
+      />
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// дать разрешение на измненние папки и проекта  sudo chown -R <user-name> <directory-name></directory-name>
