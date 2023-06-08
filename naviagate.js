@@ -18,7 +18,7 @@ export default function Navigate() {
             />
 
     <Stack.Screen 
-            name='Contact' 
+            name='Contacts' 
             component = {Contacts}
             options = {{title: 'Контакты'}}
             
